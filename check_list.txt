@@ -1,0 +1,153 @@
+Mục tiêu: Chuẩn bị môi trường và biến dữ liệu thô (ID) thành dữ liệu văn bản mà LLM hiểu được.
+
+[ V] 1.1. Khởi tạo Project:
+
+[ V] Tạo folder project (recsys_agent).
+
+[V ] Tạo virtual environment (python -m venv venv).
+
+[V ] Cài đặt thư viện: numpy, pandas, tqdm, google-generativeai, scikit-learn.
+
+[V ] Tạo cấu trúc thư mục: data/, opt/, logs/, memory/.
+
+[V] 1.2. Xử lý dữ liệu (data/):
+
+[ ] Load Data: Viết script đọc các file bundle, games, ml-1m.
+
+[ ] Map ID to Text: Tạo dictionary ánh xạ ItemID sang Item Description (Tên, Thể loại, Mô tả). Lý do: LLM không hiểu ID "123" là gì, nó cần biết đó là "Toy Story".
+
+[ ] User History Formatting: Viết hàm convert lịch sử user thành text.
+
+Input: List ItemIDs + Timestamp.
+
+Output: String mô tả context phong phú hơn (VD: "Gần đây xem nhiều phim hành động, xu hướng đang tìm kiếm thể loại mới...").
+
+[ ] Data Splitting: Chia tập Train/Test (nên chia theo thời gian: Train 80% cũ, Test 20% mới nhất của mỗi user).
+
+GIAI ĐOẠN 2: CORE INFRASTRUCTURE (Cơ sở hạ tầng - Folder opt/)
+Mục tiêu: Đảm bảo giao tiếp với Gemini 2.5 Flash ổn định, không bị crash.
+
+[ V] 2.1. File opt/request.py (Gemini Client):
+
+[V ] Setup API Key Google.
+
+[V ] Cấu hình model: gemini-2.5-flash.
+
+[V ] Quan trọng: Viết hàm call_api với cơ chế Retry/Backoff.
+
+Logic: Nếu gặp lỗi 429 (Rate Limit) -> time.sleep(2^n) -> Thử lại.
+
+[V ] Cấu hình generation_config: Set temperature=0.0 (để kết quả nhất quán) và response_mime_type="application/json" (nếu model hỗ trợ, để dễ parse).
+[ V] (Mới) Setup Embedding Model: Cấu hình model text-embedding-004 để dùng cho việc vector hóa text.
+
+[ ] 2.2. File opt/utils.py (Xử lý Output):
+
+[ ] Viết hàm extract_item_ids(response): Dùng Regex để bắt list ID [1, 5, 10] từ văn bản dài dòng của LLM.
+
+[ ] Viết hàm parse_json_rule(response): Để đọc output JSON từ Agent 2 (The Analyst).
+
+[ ] (Mới) Hàm calculate_cosine_similarity: Để tính độ tương đồng giữa vector User Context và vector Rule.
+[ ] (Mới) Class EmbeddingCache: * Hàm get_embedding(text): Check file cache trước, nếu không có mới gọi API Google -> lưu vào cache.
+[ ] 2.3. File opt/metrics.py:
+
+[ ] Tích hợp class Metric bạn đã cung cấp (NDCG, HIT, MAP). Đảm bảo input của nó khớp với output của quá trình Eval.
+
+GIAI ĐOẠN 3: AGENTS & MEMORY (Trí tuệ nhân tạo)
+Mục tiêu: Xây dựng 3 "nhân viên" AI và bộ nhớ dùng chung.
+
+[ ] 3.1. Xây dựng Knowledge Base (Memory):
+[ ] Định nghĩa lại cấu trúc Rule cho Semantic Search:
+
+JSON
+
+{
+  "condition_description": "Mô tả ngữ cảnh user (dùng để so khớp vector)",
+  "instruction": "Chỉ dẫn cho Agent 1",
+  "created_at": "timestamp",
+  "performance_score": 0.5 (để đánh giá rule này tốt hay xấu sau này)
+}
+[ ] 3.2. Agent 3: The Retriever (Module tìm kiếm):
+
+[ ] Viết hàm retrieve_rules(user_context) (Thay thế Keyword Matching ):
+
+B1: Vector hóa user_context hiện tại.
+
+B2: Tính Cosine Similarity với vector của các Rules trong KB.
+
+B3: Lấy Top-K rules có điểm tương đồng cao nhất (> ngưỡng threshold).Output: List các instruction phù hợp.
+
+[ ] 3.3. Agent 1: The Optimizer (Module gợi ý):
+
+[ ] Viết hàm build_prompt(user_profile, retrieved_rules):
+
+Template ghép nối: [Vai trò] + [Dữ liệu User] + [Rules bắt buộc áp dụng] + [Yêu cầu Output JSON].
+
+[ ] 3.4. Agent 2: The Analyst:
+[ ] Input Prompt bổ sung: applied_rules (Các rule mà Agent 1 đã kích hoạt).
+ [ ] Logic phân tích: * Nếu applied_rules rỗng -> Lỗi do thiếu kiến thức -> Tạo Rule mới. * Nếu applied_rules có -> Lỗi do Rule sai hoặc Rule chưa đủ mạnh -> Sửa/Gộp Rule.
+GIAI ĐOẠN 4: EVALUATION & FEEDBACK LOOP (Vòng lặp tự học)
+Mục tiêu: Kết nối class Eval của bạn với hệ thống Agent để nó tự khôn lên.
+
+[ ] 4.1. Nâng cấp class Eval (File opt/eval.py):
+
+[ ] Import Retriever (Agent 3) và Request (Agent 1).
+
+[ ] Sửa hàm process_data:
+
+rules = retriever.get(user_input)
+
+prompt = build_prompt(user_input, rules)
+
+response = gemini.request(prompt)
+
+rank = check_rank(response, target)
+
+[ ] Sửa hàm record_error: Lưu thêm prompt_đã_dùng và rules_đã_dùng vào log lỗi để Agent 2 phân tích.
+
+[ ] 4.2. Xây dựng hàm update_knowledge_base (Feedback Loop):
+
+[ ] Input: List các lỗi (self.error_list từ Eval).
+
+[ ] Logic:
+
+Chọn ra top N lỗi điển hình.
+
+Gửi cho Agent 2 phân tích -> Đề xuất Rule mới/Sửa Rule cũ.
+
+[ ] (Mới) Logic "Consolidation & Pruning" (Quan trọng):
+
+Trước khi lưu Rule mới, kiểm tra sự mâu thuẫn với Rules cũ.
+
+Nếu Rule mới bao trùm Rule cũ -> Xóa Rule cũ, giữ Rule mới.
+
+Nếu Rule mới mâu thuẫn -> Dùng Agent 2 để quyết định giữ cái nào (hoặc gộp lại).
+[ ] Lưu lại vào memory/rules.json.
+
+[ ] Cơ chế: Chạy hàm này sau mỗi Batch hoặc sau mỗi Epoch.
+
+GIAI ĐOẠN 5: EXECUTION (Vận hành)
+Mục tiêu: File main.py để chạy toàn bộ quy trình.
+
+[ ] 5.1. File main.py:
+
+[ ] Load Config & Data.
+
+[ ] Khởi tạo vòng lặp Training (nếu muốn học) hoặc Testing.
+
+[ ] Workflow:
+
+Python
+
+# 1. Chạy Eval trên tập nhỏ (Validation)
+evaluator = Eval(...)
+result, _, errors = evaluator.run(base_prompt)
+
+# 2. Kích hoạt Agent 2 để học từ lỗi (Feedback Loop)
+new_rules = run_agent_analyst(errors)
+knowledge_base.update(new_rules)
+
+# 3. Chạy lại Eval (hoặc chạy Test) với KB đã được update
+# Lúc này Agent 1 sẽ dùng rules mới -> Kết quả tốt hơn.
+[ ] 5.2. Logging:
+
+[ ] Ghi log kết quả Metric (NDCG, MAP) ra file CSV để vẽ biểu đồ so sánh trước/sau khi update KB.

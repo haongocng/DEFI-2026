@@ -1,0 +1,34 @@
+[
+    {
+        "condition_description": "Khi trong candidate set tồn tại sản phẩm trùng khớp (duplicate) hoặc bản đúng chính xác với lịch sử xem gần nhất của người dùng (bao gồm sản phẩm, phụ kiện, model, phiên bản đặc biệt...)",
+        "instruction": "Luôn ưu tiên gợi ý bản trùng khớp hoặc phiên bản đúng với lịch sử người dùng trước khi xét đến các sản phẩm cùng series, cùng thể loại hay liên quan khác."
+    },
+    {
+        "condition_description": "Khi trong candidate set xuất hiện sản phẩm cùng series/franchise hoặc là bản tiếp theo, mở rộng, hoặc phiên bản khác của nội dung gần nhất mà user đã xem.",
+        "instruction": "Luôn ưu tiên gợi ý sản phẩm cùng series hoặc bản tiếp theo/phụ kiện trực tiếp liên quan thay vì chỉ dựa trên thể loại hoặc gameplay tương đồng."
+    },
+    {
+        "condition_description": "Khi không tồn tại duplicate/phụ kiện/hệ máy khớp hoàn toàn, nhưng lịch sử cho thấy xu hướng thể loại (genre), gameplay style hoặc series/franchise rõ nét",
+        "instruction": "Luôn ưu tiên sản phẩm hợp nhất với dòng gameplay/genre/series trong candidate set sát nhất với thói quen và lịch sử xem gần nhất, thay vì dựa trên các tiêu chí phụ khác như độ mới, giá trị giải trí chung, hoặc gợi ý phổ biến.",
+        "created_at": "2026-01-11T23:04:24.125386",
+        "updated_at": "2026-01-11T23:04:24.125386",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "Khi user có hành vi xem nhiều sản phẩm cùng genre hoặc thể loại gameplay đặc trưng nhưng không theo một series/franchise cụ thể",
+        "instruction": "Ưu tiên gợi ý sản phẩm cùng thể loại hoặc có gameplay style tương đồng rõ rệt với sản phẩm đã xem gần nhất trong lịch sử người dùng, đặc biệt khi không có phần tiếp theo hoặc sản phẩm cùng series trong candidate set.",
+        "created_at": "2026-01-11T22:30:33.798446",
+        "updated_at": "2026-01-11T22:30:33.798446",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "Khi lịch sử người dùng thể hiện thói quen rõ rệt về nền tảng (console/platform) cụ thể, hoặc vừa xem/xem nhiều sản phẩm/phụ kiện/hardware cho một hệ máy nhất định.",
+        "instruction": "Ưu tiên gợi ý sản phẩm/phụ kiện đúng hoặc tương thích trực tiếp với hệ máy/platform mà user đã quan tâm trong lịch sử, trước khi xét các yếu tố thể loại hoặc độ phổ biến."
+    },
+    {
+        "condition_description": "Khi candidate set có các sản phẩm cùng thể loại/gameplay style mà người dùng đã tương tác gần nhất, nhưng đồng thời tồn tại các lựa chọn đặc biệt nổi bật về series hoặc platform.",
+        "instruction": "Nếu có cả lựa chọn cùng series và lựa chọn cùng genre, luôn đặt ưu tiên cao nhất cho lựa chọn cùng series/franchise. Nếu không có, tiếp đến mới xét ưu tiên theo genre/gameplay matching sát với hành vi gần nhất.",
+        "created_at": "2026-01-11T23:07:00.824489",
+        "performance_score": 0.5
+    }
+]
