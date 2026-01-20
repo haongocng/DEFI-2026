@@ -24,15 +24,13 @@ class DataLoader:
         match = re.search(r'\d+\.\"(.*?)\"', item_str)
         if match:
             return match.group(1)
-        return item_str # Trả về nguyên gốc nếu không match
-
+        return item_str 
     def parse_user_history(self, input_string):
  
         history_match = re.search(r'Current session interactions: \[(.*?)\]', input_string)
         
         if history_match:
             raw_items = history_match.group(1).split(',')
-            # 2. Làm sạch từng item
             clean_items = [self.clean_item_text(item.strip()) for item in raw_items]
             return clean_items
         return []

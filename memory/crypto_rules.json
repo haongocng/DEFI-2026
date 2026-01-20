@@ -1,0 +1,182 @@
+[
+    {
+        "condition_description": "When long-term trend (4H) is UP, short-term trend is DOWN, ADX is low (<15), and price is consolidating near Bollinger Band center or slightly above BB Low",
+        "instruction": "Prioritize BUY signals during consolidation phases in an established 4H uptrend, even if short-term momentum or ADX is weak, especially if price is not overbought and stays above support levels.",
+        "created_at": "2026-01-12T13:33:15.477139",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When price is near the Bollinger Band Low with RSI between 40-50 and ADX is moderately strong (>20), in an overall 4H uptrend",
+        "instruction": "Consider BUY entries on oversold or neutral RSI and BB Low tests if the 4H trend is up and ADX is not extremely weak, regardless of short-term EMA trend.",
+        "created_at": "2026-01-12T13:33:15.478107",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When 4H trend is confirmed UP, and price consolidates for multiple candles with low BB Band Width and neutral RSI, but no sign of breakdown",
+        "instruction": "Initiate BUY signals during prolonged low-volatility consolidation if there is no clear breakdown, to avoid missing reversals in strong trends.",
+        "created_at": "2026-01-12T13:33:15.479584",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When price is only in the middle area of the Bollinger Bands ('Normal' BB Position), not close to clear support or BB Low, even if volatility is low and the 4H trend is up.",
+        "instruction": "Do not enter BUY positions unless price is at or very near a major support level or BB Low; avoid buying in the BB 'Normal' zone."
+    },
+    {
+        "condition_description": "When price is consolidating in a tight range (low BB Band Width) with a clear 4H UP trend, RSI is not overbought, and price is near or above support—even if short-term trend (EMA34/89) is DOWN and ADX is very low",
+        "instruction": "Allow BUY entries during low-volatility consolidation in a 4H uptrend with non-overbought RSI, regardless of weak momentum or short-term trend direction.",
+        "created_at": "2026-01-12T17:08:42.096519",
+        "updated_at": "2026-01-12T17:08:42.096519",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When short-term EMA trend (EMA34/89) is DOWN, price structure shows no decisive evidence of reversal (no pinbar, bullish engulfing, or divergence), and volatility is not at extreme lows.",
+        "instruction": "Do not open Long positions simply based on consolidation—require clear reversal evidence before taking a BUY.",
+        "created_at": "2026-01-12T13:38:18.670128",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When the 4H trend is up, price is consolidating with BB Band Width very narrow (<1%), ADX is low or moderate, RSI is neutral, and price remains above recent support even if not touching BB Low.",
+        "instruction": "Consider BUY entries during low-volatility consolidations in established 4H uptrends if price is above support and not overbought, even if price is not precisely at BB Low.",
+        "created_at": "2026-01-12T13:45:34.780887",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When BB Position is reported as 'Normal' but price is at the lower third of the recent multi-bar range and conditions like uptrending 4H, neutral RSI, and acceptable ADX are met.",
+        "instruction": "Broaden the definition of 'BB Low' contextually: treat 'Normal' BB Position as buyable if price is near local range support, not just the exact BB Low.",
+        "created_at": "2026-01-12T13:45:34.781886",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When 4H trend is UP, short-term trend is DOWN, ADX is low (<25), and RSI is not overbought, but price is above support and volatility is extremely low.",
+        "instruction": "Do not require price to touch exact BB Low; prioritize BUY entries near or moderately above support levels during prolonged tight ranges in an established uptrend, provided no resistance or overbought signal is present."
+    },
+    {
+        "condition_description": "When price is consolidating above clear support with low BB Band Width (<2%), RSI is neutral (38-53), and 4H trend is up, even if price is only in the lower-middle of the BB range (not precisely BB Low), and short-term (EMA34/89) trend is down.",
+        "instruction": "Allow BUY entries during tight consolidation in a 4H uptrend when price is near or moderately above support, provided volatility is low and there are no overbought signals—even if price is not exactly at BB Low.",
+        "created_at": "2026-01-12T13:49:51.344228",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When ADX is low (<15) and BB Band Width is very tight (<1%), indicating strong consolidation and market compression without overbought conditions.",
+        "instruction": "Prioritize BUY entries in strong consolidations under 4H uptrends, as these are optimal conditions for mean reversion and trend continuation, unless there are clear signs of resistance or overbought RSI.",
+        "created_at": "2026-01-12T13:49:51.345244",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When multiple entry confluences (support proximity, non-overbought RSI, 4H uptrend) are present but BB Position is not exactly at BB Low",
+        "instruction": "Do not strictly require price to be exactly at BB Low—consider BUY if the price is near support and all major confluences are present in a 4H uptrend.",
+        "created_at": "2026-01-12T14:39:12.427461",
+        "updated_at": "2026-01-12T14:39:12.427461",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When the long-term (4H) trend is UP, short-term trend (EMA34/89) is DOWN, RSI is not overbought (typically 35-50), ADX is weak or moderate (<25), and price is near BB Low or within normal BB zone with low to moderate band width.",
+        "instruction": "Allow BUY entries when long-term trend is UP, RSI is not overbought, and price is near or above BB Low, even if short-term trend is DOWN and ADX is below 25; do not require short-term trend or high ADX confluence for reversal entries at support in a higher timeframe uptrend.",
+        "created_at": "2026-01-12T13:52:33.640148",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When recommending WAIT due to BB width above the ultra-tight threshold (e.g., >0.7%), even though price is near BB Low and higher timeframe trend is up, resulting in missed reversal entries at support.",
+        "instruction": "Allow BUY entries when price is near BB Low and 4H trend is UP, RSI is not overbought (<55), and ADX <25, even if BB width is between 1.5% and 1.8%, to avoid unnecessarily filtering out valid support reversal opportunities due to strict BB width criteria.",
+        "created_at": "2026-01-12T14:00:50.368119",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When recommending WAIT due to BB width above the ultra-tight threshold (e.g., >0.7%), even though price is near BB Low and higher timeframe trend is up, resulting in missed reversal entries at support.",
+        "instruction": "Allow BUY entries when price is near BB Low and 4H trend is UP, RSI is not overbought (<55), and ADX <25, even if BB width is between 1.5% and 1.8%, to avoid unnecessarily filtering out valid support reversal opportunities due to strict BB width criteria."
+    },
+    {
+        "condition_description": "When recommending BUY in moderate to wide BB width consolidation (>1.5%) simply because trend and RSI are favorable, leading to inappropriate entries during non-optimal volatility.",
+        "instruction": "Do NOT BUY when BB width exceeds 1.5% – regardless of trend or RSI – except in cases of clear price interaction with BB Low or recognizable momentum reversal structures.",
+        "created_at": "2026-01-12T14:00:52.884662",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When recommending BUY in moderate to wide BB width consolidation (>1.5%) simply because trend and RSI are favorable, leading to inappropriate entries during non-optimal volatility.",
+        "instruction": "Do NOT BUY when BB width exceeds 1.5% – regardless of trend or RSI – except in cases of clear price interaction with BB Low or recognizable momentum reversal structures."
+    },
+    {
+        "condition_description": "When price is in a normal BB Position, consolidation is present (BB Band Width < 1%), RSI is neutral, and 4H uptrend is established",
+        "instruction": "Only allow BUY entries in low-volatility consolidations if other signs of support or reversal (such as BB Low touch or obvious support level) are present; WAIT if price is mid-range with no clear support confluence."
+    },
+    {
+        "condition_description": "When price is at or near BB Low and 4H trend is UP, regardless of BB Band Width being above ultra-tight levels (e.g., in the 1.5-1.7% range), and RSI is not overbought",
+        "instruction": "Allow BUY entries if price is at or near BB Low and there is a 4H uptrend, even if BB Band Width is moderately above ultra-tight thresholds, provided RSI is not overbought."
+    },
+    {
+        "condition_description": "BUY signals were rejected when price was near BB Low, RSI was not overbought, 4H uptrend was present, but BB width was moderately high (1.49%–1.73%)",
+        "instruction": "Allow BUY entries when price is near BB Low in a 4H uptrend with neutral RSI, even if BB width is moderately above 1%, as long as width remains below 2%."
+    },
+    {
+        "condition_description": "When price is consolidating in a well-established 4H uptrend with ongoing very tight Bollinger Bands, and there are repeated periods of low ADX, neutral RSI, and lack of clear bearish momentum.",
+        "instruction": "Bias toward BUY entries during extended consolidations in 4H uptrends, even if price remains between BB mid and BB Low, unless clear bearish reversal or resistance signal is present.",
+        "created_at": "2026-01-12T14:55:09.726743",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "Failing to adapt entry logic to extremely low-volatility environments where tight consolidation effectively redefines support boundaries.",
+        "instruction": "Treat tight range and prolonged low BB Band Width as an adaptive support zone in 4H uptrends, and allow BUYs if price is at the lower half of the recent consolidation range and other criteria are met.",
+        "created_at": "2026-01-12T15:03:40.036815",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When price is at or near BB Low during an uptrend but lacks additional confirmation for support break or bullish price action.",
+        "instruction": "Require at least one form of confirmation (e.g., rejection wick, cluster of lows, clear consolidation) when considering entries at BB Low, particularly in volatile environments.",
+        "created_at": "2026-01-12T15:09:06.569486",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When RSI is in a neutral zone (40–51) and other entry criteria are only weakly met (no clear volatility or structural edge).",
+        "instruction": "Require additional confluence such as proximity to support/BB Low or clear volatility extremes before entering a BUY; do not rely solely on uptrend and non-overbought RSI.",
+        "created_at": "2026-01-12T16:38:10.333016",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When the 4H long-term trend is DOWN but secondary indicators (low volatility, non-overbought RSI, and support proximity) signal a potential reversal or early bottom formation, especially in non-overbought, consolidating conditions.",
+        "instruction": "Allow BUY entries during consolidations if volatility is compressed and price is near support with a non-overbought RSI, even if the 4H trend is DOWN, in order to capture early reversal setups.",
+        "created_at": "2026-01-12T17:29:55.921721",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When the 4H long-term trend is DOWN but secondary indicators (low volatility, non-overbought RSI, and support proximity) signal a potential reversal or early bottom formation, especially in non-overbought, consolidating conditions.",
+        "instruction": "Allow BUY entries during consolidations if volatility is compressed and price is near support with a non-overbought RSI, even if the 4H trend is DOWN, in order to capture early reversal setups."
+    },
+    {
+        "condition_description": "When BB band width is compressed (≤1.5%) and price is consolidating near support with neutral RSI, regardless of ADX and short-term trend alignment.",
+        "instruction": "Permit BUY entries under tight volatility compression with price near support and neutral RSI, even without confluence from trend or momentum, to capture early breakout and mean-reversion opportunities.",
+        "created_at": "2026-01-12T17:29:57.862112",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When price is in a consolidation at or near support, but both volatility (BB bandwidth) is not extremely tight and there is no clear sign of reversal momentum (ADX remains weak, RSI is neutral, price does not retest BB Low or show strong reversal signal), even during a higher timeframe uptrend.",
+        "instruction": "WAIT for either a retest of BB Low, a reduction in BB bandwidth to extreme lows, or a clear reversal confirmation (such as price action signal or momentum uptick) before considering a BUY entry, even if long-term trend is up.",
+        "created_at": "2026-01-12T18:33:39.145216",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When price is in a consolidation at or near support, but both volatility (BB bandwidth) is not extremely tight and there is no clear sign of reversal momentum (ADX remains weak, RSI is neutral, price does not retest BB Low or show strong reversal signal), even during a higher timeframe uptrend.",
+        "instruction": "WAIT for either a retest of BB Low, a reduction in BB bandwidth to extreme lows, or a clear reversal confirmation (such as price action signal or momentum uptick) before considering a BUY entry, even if long-term trend is up."
+    },
+    {
+        "condition_description": "When the short-term trend is down, ADX is below 20, and price is not at a clear support extremity (e.g., BB Low or major price cluster low).",
+        "instruction": "Do not take reversal BUY entries in a mild consolidation unless price is at a technical extremity or there is clear reversal confirmation.",
+        "created_at": "2026-01-12T18:33:41.353053",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "When the short-term trend is down, ADX is below 20, and price is not at a clear support extremity (e.g., BB Low or major price cluster low).",
+        "instruction": "Do not take reversal BUY entries in a mild consolidation unless price is at a technical extremity or there is clear reversal confirmation."
+    },
+    {
+        "condition_description": "When all technical signals (RSI, ADX, BB Position) are neutral and there is no confluence of high-probability reversal conditions.",
+        "instruction": "Avoid BUY entries in neutral/no-signal environments; prioritize setups with strong confirmation or price at an extreme.",
+        "created_at": "2026-01-12T18:33:44.650618",
+        "performance_score": 0.5
+    },
+    {
+        "condition_description": "Assumed that lower volatility and price above BB Low always indicate a buy signal.",
+        "instruction": "Consider additional confirming indicators to avoid premature buy signals in low volatility conditions.",
+        "created_at": "2026-01-12T18:40:53.798352",
+        "performance_score": 0.5
+    }
+]

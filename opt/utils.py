@@ -30,15 +30,24 @@ class Utils:
             print(f"⚠️ Lỗi parse JSON List: {e}")
             return []
     @staticmethod
-    def parse_json_rule(response_text):
-
+    def parse_json_rule(text):
+        if not text: return None
+        
         try:
-            json_match = re.search(r'(\{.*\})', response_text, re.DOTALL)
-            if json_match:
-                return json.loads(json_match.group(1))
-            return json.loads(response_text)
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+            
+        try:
+            match = re.search(r'\{.*\}', text, re.DOTALL)
+            
+            if match:
+                json_str = match.group(0)
+                return json.loads(json_str)
+            else:
+                return None
+                
         except Exception as e:
-            print(f"⚠️ Lỗi parse JSON: {e}")
             return None
 
     @staticmethod

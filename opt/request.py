@@ -10,13 +10,12 @@ from dotenv import load_dotenv
 try:
     from sentence_transformers import SentenceTransformer
 except ImportError:
-    print("⚠️ [SYSTEM] Chưa cài đặt 'sentence-transformers'.")
     SentenceTransformer = None
 
 load_dotenv()
 
 class TimelyClient:
-    def __init__(self, api_key=None, base_url=None, model_name="gpt-4.1"):
+    def __init__(self, api_key=None, base_url=None, model_name="gpt-4o-mini"):
         self.api_key = api_key or os.getenv("TIMELY_API_KEY")
         self.base_url = base_url or os.getenv("TIMELY_BASE_URL", "https://hello.timelygpt.co.kr/api/v2/chat")
         
@@ -29,7 +28,6 @@ class TimelyClient:
         self.access_token = None
         self.token_expires_at = 0
 
-        # Embedding model
         if SentenceTransformer:
             self.embedder = SentenceTransformer('all-MiniLM-L6-v2')
         else:
@@ -40,7 +38,6 @@ class TimelyClient:
         if self.access_token and time.time() < self.token_expires_at:
             return
 
-        print("🔄 [AUTH] Đang lấy Access Token mới...")
         url = f"{self.base_url}/sdk-auth/authenticate"
         headers = {
             "Content-Type": "application/json",

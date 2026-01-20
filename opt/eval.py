@@ -6,28 +6,28 @@ from .utils import Utils
 
 class Evaluator:
     def __init__(self, retriever, optimizer, analyst, kb, metrics):
-
         self.retriever = retriever
         self.optimizer = optimizer
         self.analyst = analyst
         self.kb = kb
         self.metrics = metrics
         self.error_list = [] 
-    def process_data(self, test_data, k=10):
+
+    def process_data(self, test_data, k=10, candidate_size=20):
         results = []
         self.error_list = []
 
         print(f"--- Đang chạy đánh giá trên {len(test_data)} mẫu ---")
         for item in tqdm(test_data):
             user_input = item['input']
-            candidate_set = item.get('candidate_set', "") # Lấy candidate_set đã chuẩn bị từ main.py
+            candidate_set = item.get('candidate_set', "") 
             target_id = item.get('target_id') 
             target_text = item.get('target_text', 'Không rõ')
 
-            # 1. Retriever: Tìm rules phù hợp
+            # 1. Retriever
             rules = self.retriever.retrieve_rules(user_input)
 
-            # 2. Optimizer: Truyền thêm candidate_set vào hàm gọi
+            # 2. Optimizer
             preds, reason = self.optimizer.get_recommendations(user_input, rules, candidate_set)
 
             # 3. Ghi nhận kết quả
@@ -36,18 +36,17 @@ class Evaluator:
                 'predicted_ids': preds
             })
 
-            # 4. Kiểm tra lỗi
+            # 4. Kiểm tra lỗi (Dùng k để xác định xem có coi là lỗi hay không để feedback loop)
             if target_id not in preds[:k]:
                 self.record_error(user_input, rules, preds, target_text)
                 
-            # Thêm nghỉ để tránh Rate Limit 429 nếu cần
-            time.sleep(1) 
+            time.sleep(2) 
 
-        report = self.metrics.evaluate_batch(results, k=k)
+        # SỬ DỤNG LOGIC MỚI: Truyền candidate_size thay vì k đơn lẻ
+        report = self.metrics.evaluate_batch(results, candidate_size=candidate_size)
         return report
 
     def record_error(self, user_input, rules, preds, target_text):
-
         self.error_list.append({
             "user_profile": user_input,
             "applied_rules": rules,
@@ -56,7 +55,6 @@ class Evaluator:
         })
 
     def update_knowledge_base(self, top_n_errors=3):
-
         if not self.error_list:
             print("Hệ thống không có lỗi nào để phân tích.")
             return
@@ -98,15 +96,16 @@ class Evaluator:
 
         self.kb.save_rules()
 
-    def calculate_metrics_from_results(self, results, k=10):
-
-        report = self.metrics.evaluate_batch(results, k=k)
+    def calculate_metrics_from_results(self, results, k=10, candidate_size=20):
+        # SỬ DỤNG LOGIC MỚI
+        report = self.metrics.evaluate_batch(results, candidate_size=candidate_size)
         
         self.error_list = []
         for res in results:
-            target = str(res.get('target_id')) # Ép kiểu string để so sánh an toàn
+            target = str(res.get('target_id')) 
             preds = [str(p) for p in res.get('predicted_ids', [])]
             
+            # Vẫn dùng k để lọc lỗi
             if target not in preds[:k]:
                 if 'user_profile' in res:
                     self.record_error(
