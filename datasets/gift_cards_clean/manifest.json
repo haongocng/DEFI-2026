@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "dataset": "Amazon Reviews 2023 - Gift Cards",
+  "seed": 42,
+  "split_policy": "one final interaction per user; user-disjoint and observable-query-disjoint splits",
+  "target_policy": "actual final event; reject if its parent_asin or normalized title appeared earlier",
+  "history_policy": "prior events only; keep latest occurrence per normalized title; retain the most recent 20 unique titles",
+  "candidate_policy": "one target plus 19 deterministic random unseen products; unique normalized candidate titles",
+  "sizes": {
+    "train": 50,
+    "validation": 100,
+    "test": 1000
+  },
+  "products_with_metadata": 1137,
+  "unique_negative_pool_titles": 851,
+  "skipped_reviews_missing_metadata": 0,
+  "eligibility": {
+    "users_total": 132732,
+    "excluded_fewer_than_two_events": 119860,
+    "excluded_repeated_target_parent_asin": 1793,
+    "excluded_repeated_target_title": 678,
+    "excluded_empty_history_after_collapse": 0,
+    "eligible_users": 10401
+  },
+  "eligible_unique_observable_queries": 6228,
+  "source": {
+    "reviews": "/Users/haongocng/Documents/DEFI/DEFi-2026/agent_recommend/dataset/normal_dataset/amazon/Gift_Cards.jsonl",
+    "reviews_sha256": "b7ceead0dd6378eebfc6f4736402f85cc08e8dcb328f813c95ca68fc62d9544e",
+    "metadata": "/Users/haongocng/Documents/DEFI/DEFi-2026/agent_recommend/dataset/normal_dataset/amazon/meta_Gift_Cards.jsonl",
+    "metadata_sha256": "7909903c85f0690b4ff653981724af1ea6473e7b21a7e32c7adae5026240808f"
+  },
+  "files": {
+    "train": "/Users/haongocng/Documents/DEFI/MODEL/datasets/gift_cards_clean/train_50.json",
+    "validation": "/Users/haongocng/Documents/DEFI/MODEL/datasets/gift_cards_clean/valid.json",
+    "test": "/Users/haongocng/Documents/DEFI/MODEL/datasets/gift_cards_clean/test_seed_42.json",
+    "manifest": "/Users/haongocng/Documents/DEFI/MODEL/datasets/gift_cards_clean/manifest.json"
+  }
+}
